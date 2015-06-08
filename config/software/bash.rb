@@ -18,6 +18,7 @@ name "bash"
 default_version "4.3.30"
 
 dependency "libiconv"
+dependency "ncurses"
 
 version("4.3.30") { source md5: "a27b3ee9be83bd3ba448c0ff52b28447" }
 
@@ -28,8 +29,17 @@ relative_path "bash-#{version}"
 build do
   env = with_standard_compiler_flags(with_embedded_path)
 
+  # On freebsd, you have to force static linking, otherwise the executable
+  # will link against the system ncurses instead of ours.
+  if freebsd?
+    configure_args = ["--enable-static-link"]
+  else
+    configure_args = []
+  end
+
   configure_command = ["./configure",
-                       "--prefix=#{install_dir}/embedded"]
+                       "--prefix=#{install_dir}/embedded",
+                       configure_args]
 
   command configure_command.join(" "), env: env
   make "-j #{workers}", env: env

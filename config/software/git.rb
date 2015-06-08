@@ -66,8 +66,19 @@ build do
   patch source: "aix-use-freeware-install.patch", plevel: 1, env: patch_env if aix?
   patch source: "aix-strcmp-in-dirc.patch", plevel: 1, env: patch_env if aix?
 
+  if freebsd?
+    configure_args = ["--enable-pthreads=-pthread",
+                      "ac_cv_header_libcharset_h=no",
+                      "--with-curl=/usr/local",
+                      "--with-expat=/usr/local",
+                      "--with-perl=/usr/local/bin/perl"]
+  else
+    configure_args = []
+  end
+
   configure_command = ["./configure",
-                       "--prefix=#{install_dir}/embedded"]
+                       "--prefix=#{install_dir}/embedded",
+                       configure_args]
 
   command configure_command.join(" "), env: env
   make "-j #{workers}", env: env
