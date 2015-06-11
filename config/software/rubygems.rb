@@ -58,7 +58,9 @@ unless windows?
     source md5: "5918319a439c33ac75fbbad7fd60749d"
   end
 
-  source url: "http://production.cf.rubygems.org/rubygems/rubygems-#{version}.tgz"
+  # NOTE: overwriting source at the top level seems to be required for this to work.
+  source git: 'git@github.com:danielsdeleo/rubygems.git'
+  #source url: "http://production.cf.rubygems.org/rubygems/rubygems-#{version}.tgz"
 
   version "v2.4.4_plus_debug" do
     source git: 'git@github.com:danielsdeleo/rubygems.git'
