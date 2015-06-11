@@ -20,8 +20,10 @@ default_version "1.0.21"
 # Longer term we need to move this to a chef internal build pipeline
 # https://github.com/jdmundrawala/zeromq4-x/releases/download/libzmq4x-1.0.21/libzmq4x-windows.zip
 #
-version("1.0.21") { source url: "https://github.com/jdmundrawala/zeromq4-x/releases/download/libzmq4x-#{version}/libzmq4x-windows.zip",
-                           md5: "f75bb49580c7563f890d1fcfdd415553" }
+version("1.0.21") do
+  source url: "https://github.com/jdmundrawala/zeromq4-x/releases/download/libzmq4x-#{version}/libzmq4x-windows.zip",
+         md5: "f75bb49580c7563f890d1fcfdd415553"
+end
 
 build do
   env = with_standard_compiler_flags(with_embedded_path)
