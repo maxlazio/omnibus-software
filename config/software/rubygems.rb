@@ -59,6 +59,11 @@ unless windows?
   end
 
   source url: "http://production.cf.rubygems.org/rubygems/rubygems-#{version}.tgz"
+
+  version "2.4.4.debug.1" do
+    source md5: "002e976be7d1e42ca70522d073812468"
+    source url: "https://github.com/danielsdeleo/rubygems/archive/v2.4.4.debug.1.tar.gz"
+  end
 end
 
 relative_path "rubygems-#{version}"
