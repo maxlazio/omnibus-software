@@ -60,18 +60,24 @@ unless windows?
 
   source url: "http://production.cf.rubygems.org/rubygems/rubygems-#{version}.tgz"
 
+  version "v2.4.4_plus_debug" do
+    source git: 'git@github.com:danielsdeleo/rubygems.git'
+  end
+
   version "2.4.4.debug.1" do
     source git: 'git@github.com:danielsdeleo/rubygems.git'
   end
 end
 
-relative_path "rubygems-#{version}"
+# NOTE: this is only gonna work when pulling from github
+relative_path "rubygems"
 
 build do
   env = with_embedded_path
 
   if windows?
-    command "gem update --system #{version} --no-ri --no-rdoc", env: env
+    # NOTE this is hardcoded to a real version of rubygems
+    command "gem update --system 2.4.4 --no-ri --no-rdoc", env: env
   else
     ruby "setup.rb --no-ri --no-rdoc", env: env
   end
